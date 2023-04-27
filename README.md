@@ -1,5 +1,11 @@
 # fa-material
 
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/fa-material?logo=python&logoColor=white&style=for-the-badge)](https://pypi.org/project/fa-material)
+[![PyPI](https://img.shields.io/pypi/v/fa-material?logo=pypi&color=green&logoColor=white&style=for-the-badge)](https://pypi.org/project/fa-material)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/celsiusnarhwal/fa-material?logo=github&color=orange&logoColor=white&style=for-the-badge)](https://github.com/celsiusnarhwal/fa-material/releases)
+[![PyPI - License](https://img.shields.io/pypi/l/fa-material?color=03cb98&style=for-the-badge)](https://github.com/celsiusnarhwal/fa-material/blob/main/LICENSE.md)
+[![Code style: Black](https://aegis.celsiusnarhwal.dev/badge/black?style=for-the-badge)](https://github.com/psf/black)
+
 fa-material is the easiest way to use [Font Awesome](https://fontawesome.com/) Pro icons in
 your [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) project.
 
