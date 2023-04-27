@@ -6,7 +6,7 @@
 [![PyPI - License](https://img.shields.io/pypi/l/fa-material?color=03cb98&style=for-the-badge)](https://github.com/celsiusnarhwal/fa-material/blob/main/LICENSE.md)
 [![Code style: Black](https://aegis.celsiusnarhwal.dev/badge/black?style=for-the-badge)](https://github.com/psf/black)
 
-fa-material is the easiest way to use [Font Awesome](https://fontawesome.com/) Pro icons in
+fa-material is the easiest way to use [Font Awesome](https://fontawesome.com/) [Pro](https://fontawesome.com/plans) icons in
 your [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) project.
 
 An active Font Awesome Pro license is required to use fa-material.
