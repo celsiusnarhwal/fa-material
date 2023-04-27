@@ -29,7 +29,8 @@ class FontAwesomePlugin(BasePlugin):
         custom_icons = (deep_get(config, key, sep="|") or []) + [str(symlink.parent)]
         deep_set(config, key, custom_icons, sep="|")
 
-        config.theme.dirs.insert(0, str(symlink.parent.parent))
+        config.theme.dirs.insert(1, str(symlink.parent.parent))
+        print(config.theme.dirs)
 
         return config
 
