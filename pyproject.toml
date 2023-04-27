@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fa-material"
-version = "1.0.0"
+version = "1.0.1"
 description = "Font Awesome Pro + Material for MkDocs"
 authors = ["celsius narhwal <hello@celsiusnarhwal.dev>"]
 readme = "README.md"
