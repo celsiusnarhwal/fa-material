@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "fa-material"
+version = "1.0.0"
+description = ""
+authors = ["celsius narhwal <hello@celsiusnarhwal.dev>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+dict-deep = "^4.1.2"
+mkdocs = "^1.4.2"
+path = "^16.6.0"
+
+[tool.poetry.group.dev.dependencies]
+doppler-env = "^0.3.1"
+mkdocs-material = "^9.1.8"
+rich-tracebacks = "^1.2.1"
+fontawesomepro = { version = "^6.4.0", source = "fontawesome" }
+
+[tool.poetry.group.repl.dependencies]
+ipython = "^8.12.0"
+
+[[tool.poetry.source]]
+name = "fontawesome"
+url = "https://fa.celsiusnarhwal.dev"
+default = false
+secondary = false
+
+[tool.poetry.plugins."mkdocs.plugins"]
+fontawesome-pro = "fa_material.plugin:FontAwesomePlugin"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
