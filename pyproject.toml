@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "fa-material"
 version = "1.0.0"
-description = ""
+description = "Font Awesome Pro + Material for MkDocs"
 authors = ["celsius narhwal <hello@celsiusnarhwal.dev>"]
 readme = "README.md"
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.11"
