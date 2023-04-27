@@ -27,7 +27,6 @@ class FontAwesomePlugin(BasePlugin):
         key = "mdx_configs|pymdownx.emoji|options|custom_icons"
 
         custom_icons = (deep_get(config, key, sep="|") or []) + [str(symlink.parent)]
-
         deep_set(config, key, custom_icons, sep="|")
 
         config.theme.dirs.insert(0, str(symlink.parent.parent))
