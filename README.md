@@ -33,6 +33,18 @@ That's it. You can now use Font Awesome Pro icons in the same way you already do
 `:fontawesome-thin-user-secret:`). They'll work in Markdown files, `mkdocs.yml`, and anywhere else Material for MkDocs'
 icon system is used.
 
+### Font Awesome 5
+
+You can use Font Awesome 5 with fa-material by setting `fontawesome-pro`'s `version` option to `5`.
+
+```yaml
+plugins:
+  - fontawesome-pro:
+      version: 5
+```
+
+This option must be either `5` or `6`, defaulting to the latter.
+
 ## License
 
 fa-material is licensed under the [MIT License](LICENSE.md).

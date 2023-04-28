@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fa-material"
-version = "1.0.1"
+version = "1.1.0"
 description = "Font Awesome Pro + Material for MkDocs"
 authors = ["celsius narhwal <hello@celsiusnarhwal.dev>"]
 readme = "README.md"
@@ -11,15 +11,12 @@ python = "^3.7"
 dict-deep = "^4.1.2"
 mkdocs = "^1.4.2"
 path = "^16.6.0"
+fontawesome-pro = { version = "^5.15.4", source = "fontawesome" }
 
 [tool.poetry.group.dev.dependencies]
-doppler-env = "^0.3.1"
 mkdocs-material = "^9.1.8"
 rich-tracebacks = "^1.2.1"
 fontawesomepro = { version = "^6.4.0", source = "fontawesome" }
-
-[tool.poetry.group.repl.dependencies]
-ipython = "^8.12.0"
 
 [[tool.poetry.source]]
 name = "fontawesome"
@@ -29,6 +26,13 @@ secondary = false
 
 [tool.poetry.plugins."mkdocs.plugins"]
 fontawesome-pro = "fa_material.plugin:FontAwesomePlugin"
+
+[tool.black]
+target-version = ["py37"]
+line-length = 88
+
+[tool.isort]
+profile = "black"
 
 [build-system]
 requires = ["poetry-core"]
