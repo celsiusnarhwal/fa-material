@@ -53,7 +53,7 @@ jobs:
           path: site
 
       - name: Deploy to Vercel
-        uses: npx vercel --yes --cwd site --token ${{ secrets.VERCEL_TOKEN }} ${{ github.ref_name == 'main' && '--prod' || '' }}
+        run: npx vercel --yes --cwd site --token ${{ secrets.VERCEL_TOKEN }} ${{ github.ref_name == 'main' && '--prod' || '' }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
