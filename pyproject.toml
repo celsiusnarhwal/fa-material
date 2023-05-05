@@ -14,8 +14,8 @@ halo = "^0.0.31"
 mkdocs = "^1.4"
 path = "^16.6.0"
 sgqlc = "^16.1"
-typer = "^0.7.0"
 yarl = "^1.9.2"
+typer = { extras = ["all"], version = "^0.9.0" }
 
 [tool.poetry.group.dev.dependencies]
 doppler-env = "^0.3.1"
