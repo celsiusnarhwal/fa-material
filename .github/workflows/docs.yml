@@ -1,0 +1,54 @@
+on:
+  push:
+    paths:
+      - docs/**
+      - mkdocs.yml
+      - pyproject.toml
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11.1
+
+      - name: Install Poetry
+        run: pipx install poetry==1.4.2
+
+      - name: Install Dependencies
+        run: poetry install --only docs && icl install
+        env:
+          POETRY_VIRTUALENVS_CREATE: false
+
+      - name: Build Documentation
+        run: mkdocs build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: site
+          path: site
+
+  deploy:
+    name: Deploy Documentation
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: site
+          path: site
+
+      - name: Deploy to Vercel
+        uses: npx vercel --yes --cwd site --token ${{ secrets.VERCEL_TOKEN }} ${{ github.ref_name == 'main' && '--prod' || '' }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

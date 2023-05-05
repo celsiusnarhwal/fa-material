@@ -1,0 +1,9 @@
+[tool.poetry]
+name = "iconokit"
+version = "1.0.0"
+description = ""
+authors = ["celsius narhwal <hello@celsiusnarhwal.dev>"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,8 +1,28 @@
 # Changelog[^1]
 
-Notable changes to fa-material will be documented here. Breaking changes are marked with a 🚩.
+Notable changes to Iconoclast will be documented here. Breaking changes are marked with a 🚩.
 
-fa-material adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
+Iconoclast adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
+
+## <a name="2-0-0">[2.0.0] - 2023-05-05</a>
+
+🚩 fa-material is now **Iconoclast**. To upgrade, uninstall fa-material and install Iconoclast:
+
+```bash
+pip uninstall fa-material && pip install iconoclast
+```
+
+### Added
+
+- Iconoclast now has CSS support, enabling you use Font Awesome icons in block and partial overrides. ([Docs](https://iconoclast.celsiusnarhwal.dev#css-support))
+- Iconoclast now supports Font Awesome Kits, allowing you to seamlessly bring your own custom icons to Material for
+  MkDocs. ([Docs](https://iconoclast.celsiusnarhwal.dev#using-kits))
+
+### Changed
+
+- 🚩 Iconoclast's plugin is now named `iconoclast`.
+- 🚩 Support for Font Awesome 5 has been removed. Iconclast supports Font Awesome 6 only.
+  - 🚩 The `version` configuration option has also been removed.
 
 ## <a name="1-1-0">[1.1.0] - 2023-04-27</a>
 
