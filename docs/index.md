@@ -27,18 +27,18 @@ And with support for Font Awesome Kits[^2], using your own custom icons is just 
 
 You'll need to install Font Awesome Pro's Python package alongside Iconoclast.
 
-Grab your Font Awesome package manager token from your [Font Awesome account page](https://fontawesome.com/account),
-then follow the instructions for your package manager below.
+Grab your Font Awesome package manager token from your [Font Awesome account page](https://fontawesome.com/account)
+and bind it to the `FONTAWESOME_PKG_TOKEN` environment variable.
+
+```bash
+export FONTAWESOME_PKG_TOKEN={FONTAWESOME_TOKEN} # (1)!
+```
+
+1. Replace `{FONTAWESOME_TOKEN}` with your Font Awesome token.
+
+Then, follow the instructions for your package manager.
 
 === ":fontawesome-brands-python: pip"
-
-    Set set the `FONTAWESOME_INDEX_URL` environment variable as follows:
-
-    ```{.bash .no-copy .no-select}
-    export FONTAWESOME_INDEX_URL=https://dl.fontawesome.com/{FONTAWESOME_TOKEN}/fontawesome-pro/python/simple # (1)!
-    ```
-
-    1. Replace `{FONTAWESOME_TOKEN}` with your Font Awesome token.
 
     Add the following to your `requirements.txt`:
 
@@ -47,13 +47,14 @@ then follow the instructions for your package manager below.
     === ":octicons-file-code-16: `requirements.txt`"
 
         ```toml
-        ---extra-index-url ${FONTAWESOME_INDEX_URL}
+        iconoclast >= 2.0.0, < 3.0.0
+        ---extra-index-url https://dl.fontawesome.com/${FONTAWESOME_PKG_TOKEN}/fontawesome-pro/python/simple
         fontawesomepro >= 6.0.0, < 7.0.0
         ```
     Then run:
 
     ```bash
-    pip install -r requirements.txt && pip install iconoclast
+    pip install -r requirements.txt
     ```
 
 === ":simple-poetry: Poetry"
@@ -64,13 +65,16 @@ then follow the instructions for your package manager below.
     poetry self add poetry-source-env
     ```
 
-    Configure Poetry to use Font Awesome's package index:
+    Add the following to your `pyproject.toml`:
 
-    ```{.bash .no-copy .no-select}
-    export POETRY_REPOSITORIES_FONTAWESOME_URL=https://dl.fontawesome.com/{FONTAWESOME_TOKEN}/fontawesome-pro/python/simple # (1)!
-    ```
+    === ":octicons-file-code-16: `pyproject.toml`"
 
-    1. Replace `{FONTAWESOME_TOKEN}` with your Font Awesome token.
+        ```toml
+        [[tool.poetry.source]]
+        name = "fontawesome"
+        url = "https://dl.fontawesome.com/${FONTAWESOME_PKG_TOKEN}/fontawesome-pro/python/simple"
+        secondary = true
+        ```
 
     Then run:
 
@@ -79,12 +83,6 @@ then follow the instructions for your package manager below.
     ```
 
 === ":pdm: PDM"
-
-    Set set the `FONTAWESOME_INDEX_URL` environment variable as follows:
-
-    ```{.bash .no-copy .no-select}
-    export FONTAWESOME_INDEX_URL=https://dl.fontawesome.com/{FONTAWESOME_TOKEN}/fontawesome-pro/python/simple # (1)!
-    ```
 
     Add the following to your `pyproject.toml`:
 
@@ -96,17 +94,16 @@ then follow the instructions for your package manager below.
 
         [[tool.pdm.source]]
         name = "fontawesome"
-        url = ${FONTAWESOME_INDEX_URL}
+        url = "https://dl.fontawesome.com/${FONTAWESOME_PKG_TOKEN}/fontawesome-pro/python/simple"
         verify_ssl = true
 
         [[tool.pdm.source]]
-        name = "pypi" # (2)!
+        name = "pypi" # (1)!
         url = "https://pypi.org/simple"
         verify_ssl = true
         ```
 
-        1. Replace `{FONTAWESOME_TOKEN}` with your Font Awesome token.
-        2. Explicitly including PyPI while enabling `tool.pdm.resolution.respect-source-order` forces PDM to prefer
+        1. Explicitly including PyPI while enabling `tool.pdm.resolution.respect-source-order` forces PDM to prefer
         Font Awesome's package index over PyPI, preventing potential dependency injection attacks if say, a bad actor
         were to publish a malicious package named `fontawesomepro` to PyPI.
 
