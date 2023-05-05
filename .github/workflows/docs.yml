@@ -31,7 +31,7 @@ jobs:
         run: poetry install --only docs && icl install
         env:
           POETRY_VIRTUALENVS_CREATE: false
-          POETRY_REPOSITORIES_MATERIAL_INSIDERS: https://github.com/squidfunk/mkdocs-material-insiders
+          POETRY_REPOSITORIES_MATERIAL_INSIDERS_URL: https://github.com/squidfunk/mkdocs-material-insiders
           POETRY_REPOSITORIES_MATERIAL_INSIDERS_USERNAME: celsiusnarhwal
           POETRY_REPOSITORIES_MATERAIL_INSIDERS_PASSWORD: ${{ secrets.GH_PAT }}
 
