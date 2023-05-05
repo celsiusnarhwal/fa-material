@@ -1,3 +1,5 @@
+name: Publish
+
 on:
   release:
     types:
@@ -8,6 +10,7 @@ on:
 jobs:
   publish:
     name: Publish to PyPI
+    environment: main
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
