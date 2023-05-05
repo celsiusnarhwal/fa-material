@@ -19,7 +19,7 @@ symlink = Path(__file__).parent / ".overrides" / ".icons" / "fontawesome"
 
 class IconokitConfig(Config):
     name = c.Type(str, default="")
-    token = c.Type(str, default=os.getenv("FONTAWESOME_API_TOKEN"))
+    token = c.Type(str, default=os.getenv("FONTAWESOME_API_TOKEN") or "")
     enabled = c.Private()
 
     def validate(self) -> Tuple[ConfigWarnings, ConfigErrors]:
