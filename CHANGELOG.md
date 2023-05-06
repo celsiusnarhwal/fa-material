@@ -31,11 +31,11 @@ pip uninstall fa-material && pip install iconoclast
 - fa-material now supports Font Awesome 5 (it previously only supported Font Awesome 6). To use Font Awesome 5, set
   the `version` option of the `fontawesome-pro` plugin to `5` (the default is `6`).
 
-      ```yaml
-      plugins:
-        - fontawesome-pro:
-            version: 5
-      ```
+  ```yaml
+  plugins:
+    - fontawesome-pro:
+        version: 5
+  ```
 
 ## <a name="1-0-1">[1.0.1] - 2023-04-27</a>
 
