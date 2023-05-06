@@ -1,3 +1,7 @@
+---
+description: Font Awesome Pro integration for Material for MkDocs
+---
+
 # Iconoclast
 
 Iconoclast integrates [Font Awesome](https://fontawesome.com/) [Pro](https://fontawesome.com/plans) with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material). It makes
