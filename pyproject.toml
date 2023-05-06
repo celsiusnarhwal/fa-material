@@ -40,7 +40,8 @@ iconoclast = "iconoclast.cli.app:app"
 icl = "iconoclast.cli.app:app"
 
 [tool.poetry.plugins."mkdocs.plugins"]
-iconoclast = "iconoclast.plugin:IconoclastPlugin"
+iconoclast = "iconoclast.plugins.iconoclast:IconoclastPlugin"
+iconocards = "iconoclast.plugins.iconocards:IconocardsPlugin"
 
 [tool.black]
 target-version = ["py37"]

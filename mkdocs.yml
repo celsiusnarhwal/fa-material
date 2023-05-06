@@ -61,10 +61,10 @@ theme:
 plugins:
   - search:
       separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
-  - social
   - typeset
   - iconoclast:
       css: true
+  - iconocards
 
 # Extensions
 markdown_extensions:
