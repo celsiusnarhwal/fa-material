@@ -84,7 +84,7 @@ Then, follow the instructions for your package manager.
     Then run:
 
     ```bash
-    poetry add iconoclast fontawesomepro --source fontawesome
+    poetry add iconoclast && poetry add fontawesomepro --source fontawesome
     ```
 
 === ":pdm: PDM"
