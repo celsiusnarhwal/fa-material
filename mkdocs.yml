@@ -48,7 +48,7 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
-  favicon: fontawesome/solid/icons
+  #  favicon: fontawesome/solid/icons
   icon:
     logo: fontawesome/duotone/icons
     repo: fontawesome/brands/github
@@ -62,9 +62,9 @@ plugins:
   - search:
       separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   - typeset
+  - social
   - iconoclast:
       css: true
-  - iconocards
 
 # Extensions
 markdown_extensions:

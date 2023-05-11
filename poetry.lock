@@ -78,14 +78,14 @@ test = ["flake8", "isort", "pytest"]
 
 [[package]]
 name = "certifi"
-version = "2022.12.7"
+version = "2023.5.7"
 description = "Python package for providing Mozilla's CA Bundle."
 category = "dev"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "certifi-2022.12.7-py3-none-any.whl", hash = "sha256:4ad3232f5e926d6718ec31cfc1fcadfde020920e278684144551c91769c7bc18"},
-    {file = "certifi-2022.12.7.tar.gz", hash = "sha256:35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"},
+    {file = "certifi-2023.5.7-py3-none-any.whl", hash = "sha256:c6c2e98f5c7869efca1f8916fed228dd91539f9f1b444c314c06eef02980c716"},
+    {file = "certifi-2023.5.7.tar.gz", hash = "sha256:0f0d56dc5a6ad56fd4ba36484d6cc34451e1c6548c61daad8c320169f91eddc7"},
 ]
 
 [[package]]
@@ -387,14 +387,7 @@ description = "Font Awesome Pro Files"
 category = "dev"
 optional = false
 python-versions = "*"
-files = [
-    {file = "fontawesomepro-6.4.0-py3-none-any.whl", hash = "sha256:ab6bbf52b111f88381e7f818c3e3b961581f0bbfafa5ca7a8325821b39e0c506"},
-]
-
-[package.source]
-type = "legacy"
-url = "https://dl.fontawesome.com/${FONTAWESOME_PKG_TOKEN}/fontawesome-pro/python/simple"
-reference = "fontawesome"
+files = []
 
 [[package]]
 name = "ghp-import"
@@ -749,7 +742,7 @@ min-versions = ["babel (==2.9.0)", "click (==7.0)", "colorama (==0.4)", "ghp-imp
 
 [[package]]
 name = "mkdocs-material"
-version = "9.1.9+insiders.4.32.6"
+version = "9.1.11+insiders.4.33.1"
 description = "Documentation that simply works"
 category = "dev"
 optional = false
@@ -773,11 +766,14 @@ readtime = ">=2.0"
 regex = ">=2022.4.24"
 requests = ">=2.26"
 
+[package.extras]
+images = ["cairosvg", "pillow"]
+
 [package.source]
 type = "git"
 url = "https://github.com/squidfunk/mkdocs-material-insiders"
 reference = "HEAD"
-resolved_reference = "dc2fd1973cbe73933f270829520bd6626510de5c"
+resolved_reference = "a9dda0990c9b22b7efe7dd7ad9c8b8a775b9df7d"
 
 [[package]]
 name = "mkdocs-material-extensions"
@@ -1020,19 +1016,19 @@ files = [
 
 [[package]]
 name = "pipdeptree"
-version = "2.7.0"
+version = "2.7.1"
 description = "Command line utility to show dependency tree of packages."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pipdeptree-2.7.0-py3-none-any.whl", hash = "sha256:f1ed934abb3f5e561ae22118d93d45132d174b94a3664396a4a3f99494f79028"},
-    {file = "pipdeptree-2.7.0.tar.gz", hash = "sha256:1c79e28267ddf90ea2293f982db4f5df7a76befca483c68da6c83c4370989e8d"},
+    {file = "pipdeptree-2.7.1-py3-none-any.whl", hash = "sha256:bb0ffa98a49b0b4076364b367d1df37fcf6628ec3b5cbb61cf4bbaedc7502db0"},
+    {file = "pipdeptree-2.7.1.tar.gz", hash = "sha256:550bd7679379e7290739384f3e9518835620e814cc29ba709513952b627da506"},
 ]
 
 [package.extras]
 graphviz = ["graphviz (>=0.20.1)"]
-test = ["covdefaults (>=2.3)", "diff-cover (>=7.5)", "pip (>=23.0.1)", "pytest (>=7.2.2)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "virtualenv (>=20.21,<21)"]
+test = ["covdefaults (>=2.3)", "diff-cover (>=7.5)", "pip (>=23.1)", "pytest (>=7.3.1)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "virtualenv (>=20.21,<21)"]
 
 [[package]]
 name = "poethepoet"
