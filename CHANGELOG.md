@@ -4,6 +4,12 @@ Notable changes to Iconoclast will be documented here. Breaking changes are mark
 
 Iconoclast adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## <a name="2-0-1">[2.0.1] - 2023-05-11</a>
+
+### Fixed
+
+- Fixed a bug where Iconoclast's command-line interface would fail.
+
 ## <a name="2-0-0">[2.0.0] - 2023-05-05</a>
 
 🚩 fa-material is now **Iconoclast**. To upgrade, uninstall fa-material and install Iconoclast:
