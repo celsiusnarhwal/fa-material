@@ -48,7 +48,7 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
-  #  favicon: fontawesome/solid/icons
+    favicon: fontawesome/solid/icons
   icon:
     logo: fontawesome/duotone/icons
     repo: fontawesome/brands/github
