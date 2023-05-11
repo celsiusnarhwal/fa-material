@@ -16,7 +16,7 @@ from yarl import URL
 from iconoclast.cli.context import set_context
 from iconoclast.cli.exceptions import Iconoquit
 from iconoclast.cli.graphql.schema import fontawesome_schema as schema
-from iconoclast.plugin import IconokitConfig
+from iconoclast.plugins.iconoclast import IconokitConfig
 
 app = typer.Typer(rich_markup_mode="rich")
 
