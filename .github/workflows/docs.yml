@@ -35,16 +35,30 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-poetry-
 
-      - name: Install Dependencies
-        run: poetry install --only main,docs
+      - name: Build Documentation
+        run: |
+          docker build . -t iconoclast \
+          --mount type=bind,source=${PWD},target=/site \
+          --build-arg POETRY_REPOSITORIES_MATERIAL_INSIDERS_URL=${POETRY_REPOSITORIES_MATERIAL_INSIDERS_URL} \
+          --build-arg POETRY_HTTP_BASIC_MATERIAL_INSIDERS_USERNAME=${POETRY_HTTP_BASIC_MATERIAL_INSIDERS_USERNAME} \
+          --build-arg POETRY_HTTP_BASIC_MATERIAL_INSIDERS_PASSWORD=${POETRY_HTTP_BASIC_MATERIAL_INSIDERS_PASSWORD} \
+          --build-arg FONTAWESOME_PKG_TOKEN=${FONTAWESOME_PKG_TOKEN} \
         env:
-          POETRY_REPOSITORIES_MATERIAL_INSIDERS_URL: https://github.com/squidfunk/mkdocs-material-insiders
-          POETRY_HTTP_BASIC_MATERIAL_INSIDERS_USERNAME: celsiusnarhwal
-          POETRY_HTTP_BASIC_MATERIAL_INSIDERS_PASSWORD: ${{ secrets.GH_PAT }}
+          POETRY_REPOSITORIES_MATERIAL_INSIDERS_URL: ${{ secrets.POETRY_REPOSITORIES_MATERIAL_INSIDERS_URL }}
+          POETRY_HTTP_BASIC_MATERIAL_INSIDERS_USERNAME: ${{ secrets.POETRY_HTTP_BASIC_MATERIAL_INSIDERS_USERNAME }}
+          POETRY_HTTP_BASIC_MATERIAL_INSIDERS_PASSWORD: ${{ secrets.POETRY_HTTP_BASIC_MATERIAL_INSIDERS_PASSWORD }}
           FONTAWESOME_PKG_TOKEN: ${{ secrets.FONTAWESOME_PKG_TOKEN }}
 
-      - name: Build Documentation
-        run: poetry run mkdocs build
+      #      - name: Install Dependencies
+      #        run: poetry install --only main,docs
+      #        env:
+      #          POETRY_REPOSITORIES_MATERIAL_INSIDERS_URL: https://github.com/squidfunk/mkdocs-material-insiders
+      #          POETRY_HTTP_BASIC_MATERIAL_INSIDERS_USERNAME: celsiusnarhwal
+      #          POETRY_HTTP_BASIC_MATERIAL_INSIDERS_PASSWORD: ${{ secrets.GH_PAT }}
+      #          FONTAWESOME_PKG_TOKEN: ${{ secrets.FONTAWESOME_PKG_TOKEN }}
+
+      #      - name: Build Documentation
+      #        run: poetry run mkdocs build
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
