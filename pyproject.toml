@@ -30,11 +30,10 @@ poethepoet = "^0.19.0"
 fontawesomepro = { version = "^6.4.0", source = "fontawesome" }
 mkdocs-material = { git = "https://github.com/squidfunk/mkdocs-material-insiders" }
 
-[[tool.poetry.source]]
-name = "fontawesome"
-url = "https://dl.fontawesome.com/${FONTAWESOME_PKG_TOKEN}/fontawesome-pro/python/simple"
-secondary = true
-
+#[[tool.poetry.source]]
+#name = "fontawesome"
+#url = "https://dl.fontawesome.com/${FONTAWESOME_PKG_TOKEN}/fontawesome-pro/python/simple"
+#secondary = true
 [tool.poetry.scripts]
 iconoclast = "iconoclast.cli.app:app"
 icl = "iconoclast.cli.app:app"
@@ -49,6 +48,9 @@ line-length = 88
 
 [tool.isort]
 profile = "black"
+
+[tool.poetry-source-env]
+toml = "false"
 
 [tool.poe.tasks]
 clear = "rm -rf site .cache"
