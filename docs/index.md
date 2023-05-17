@@ -152,7 +152,7 @@ You can now use Font Awesome Pro icons in Markdown files just as you would Font 
 
     If you're using [Material for MkDocs Insiders](https://squidfunk.github.io/mkdocs-material/insiders/) 4.33.0 or
     later, the built-in social plugin has undergone a rewrite that renders `iconocards` obsolete. You can safely ignore
-    the content of this section and use the built-in social plugin as normal.
+    the content of this section and use the built-in social plugin as usual.
 
     As of Iconoclast 2.0.2, `iconocards` will emit a deprecation warning on versions of Material for MkDocs where it is
     no longer needed.
