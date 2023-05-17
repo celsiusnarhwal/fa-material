@@ -57,6 +57,12 @@ def install(
         api_url / "token",
         headers={"Authorization": f"Bearer {kit_config.token}"},
     )
+
+    if resp.status_code == 403:
+        raise Iconoquit("Your Font Awesome API token is invalid.")
+    elif resp.status_code != 200:
+        raise Iconoquit("Couldn't communicate with Font Awesome.")
+
     access_token = resp.json()["access_token"]
 
     endpoint = RequestsEndpoint(
