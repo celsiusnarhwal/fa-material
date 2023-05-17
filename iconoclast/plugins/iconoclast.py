@@ -1,18 +1,20 @@
 from __future__ import annotations
 
 import inspect
+import logging
 import os
 import sys
 from typing import Optional, Tuple
 
 from dict_deep import deep_get, deep_set
+from mkdocs.commands.build import DuplicateFilter
 from mkdocs.config import config_options as c
 from mkdocs.config.base import Config, ConfigErrors, ConfigWarnings
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import BasePlugin
 from path import Path
-from rich import print
-from rich.panel import Panel
+
+from iconoclast.plugins import new_console
 
 symlink = Path(__file__).parent / ".overrides" / ".icons" / "fontawesome"
 
@@ -47,16 +49,14 @@ class IconoclastPlugin(BasePlugin[IconoclastConfig]):
             try:
                 import iconokit
             except ImportError:
-                print(
-                    Panel(
-                        "You haven't installed a Kit. Run [cyan]iconoclast install[/cyan], then try again.",
-                        title="Iconoclast Error",
-                        title_align="left",
-                        border_style="red",
+                with new_console() as console:
+                    console.print(
+                        "You haven't installed a Font Awesome kit. "
+                        "Run [cyan]iconoclast install[/] or change your settings "
+                        "for the [magenta]iconoclast[/] plugin.",
                     )
-                )
-
-                sys.exit(1)
+                    log.error(console.export_text(styles=True))
+                    sys.exit(1)
             else:
                 icon_dirs.append(iconokit.icons())
                 css = iconokit.kit("css")
@@ -91,17 +91,17 @@ def get_package_path() -> Path:
     try:
         import fontawesomepro
     except ImportError:
-        print(
-            Panel(
-                "Font Awesome Pro is not installed.",
-                title="Iconoclast Error",
-                title_align="left",
-                border_style="red",
+        with new_console() as console:
+            console.print(
+                "Font Awesome Pro is not installed. Install it or remove the [magenta]iconoclast[/] plugin."
             )
-        )
-
-        sys.exit(1)
+            log.error(console.export_text(styles=True))
+            sys.exit(1)
     else:
         return (
             Path(inspect.getfile(fontawesomepro)).parent / "static" / "fontawesomepro"
         )
+
+
+log = logging.getLogger("mkdocs")
+log.addFilter(DuplicateFilter())

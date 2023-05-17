@@ -7,6 +7,8 @@ from mkdocs.commands.build import DuplicateFilter
 from mkdocs.config.defaults import MkDocsConfig
 from path import Path
 
+from iconoclast.plugins import new_console
+
 
 class IconocardsPlugin(SocialPlugin):
     def on_config(self, config):
@@ -21,10 +23,12 @@ class IconocardsPlugin(SocialPlugin):
         insiders = getattr(theme_version, "build", "insiders.0.0.0").lstrip("insiders.")
 
         if public > public_deprecation or insiders > insiders_deprecation:
-            log.warning(
-                "The iconocards plugin is deprecated for your version of Material for MkDocs. "
-                "Use the built-in social plugin instead."
-            )
+            with new_console() as console:
+                console.print(
+                    "The [magenta]iconocards[/] plugin is deprecated for your version of Material for MkDocs. "
+                    "Use the built-in social plugin instead."
+                )
+                log.warning(console.export_text(styles=True))
 
         return super().on_config(config)
 
