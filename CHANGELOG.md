@@ -4,6 +4,13 @@ Notable changes to Iconoclast will be documented here. Breaking changes are mark
 
 Iconoclast adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## <a name="2-0-2">[2.0.2] - 2023-05-16</a>
+
+### Changed
+
+- The `iconocards` plugin now emits a deprecation warning on versions of Material for MkDocs where it is obsolete.
+- Iconoclast's warning and error messages are now visually consistent with those emitted by MkDocs.
+
 ## <a name="2-0-1">[2.0.1] - 2023-05-11</a>
 
 ### Fixed
