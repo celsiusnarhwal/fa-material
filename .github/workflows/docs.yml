@@ -41,7 +41,6 @@ jobs:
           POETRY_REPOSITORIES_MATERIAL_INSIDERS_URL: https://github.com/squidfunk/mkdocs-material-insiders
           POETRY_HTTP_BASIC_MATERIAL_INSIDERS_USERNAME: celsiusnarhwal
           POETRY_HTTP_BASIC_MATERIAL_INSIDERS_PASSWORD: ${{ secrets.GH_PAT }}
-          POETRY_REPOSITORIES_FONTAWESOME_URL: https://dl.fontawesome.com/${{ secrets.FONTAWESOME_PKG_TOKEN }}/fontawesome-pro/python/simple"
 
       - name: Build Documentation
         run: poetry run mkdocs build
