@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "iconoclast"
-version = "2.0.2"
+version = "2.0.3"
 description = "Font Awesome Pro integration for Material for MkDocs"
 authors = ["celsius narhwal <hello@celsiusnarhwal.dev>"]
 readme = "README.md"

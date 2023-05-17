@@ -4,6 +4,13 @@ Notable changes to Iconoclast will be documented here. Breaking changes are mark
 
 Iconoclast adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## <a name="2-0-3">[2.0.3] - 2023-05-16</a>
+
+### Fixed
+
+- Fixed a bug where Iconoclast might fail when determining whether `iconocards` is deprecated for the installed version
+  of Material for MkDocs.
+
 ## <a name="2-0-2">[2.0.2] - 2023-05-16</a>
 
 ### Changed
@@ -27,7 +34,8 @@ pip uninstall fa-material && pip install iconoclast
 
 ### Added
 
-- Iconoclast now has CSS support, enabling you use Font Awesome icons in block and partial overrides. ([Docs](https://iconoclast.celsiusnarhwal.dev#css-support))
+- Iconoclast now has CSS support, enabling you use Font Awesome icons in block and partial
+  overrides. ([Docs](https://iconoclast.celsiusnarhwal.dev#css-support))
 - Iconoclast now supports Font Awesome Kits, allowing you to seamlessly bring your own custom icons to Material for
   MkDocs. ([Docs](https://iconoclast.celsiusnarhwal.dev#using-kits))
 

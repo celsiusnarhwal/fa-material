@@ -20,7 +20,7 @@ class IconocardsPlugin(SocialPlugin):
         theme_version = semver.Version.parse(version("mkdocs-material"))
 
         public = f"{theme_version.major}.{theme_version.minor}.{theme_version.patch}"
-        insiders = getattr(theme_version, "build", "insiders.0.0.0").lstrip("insiders.")
+        insiders = (theme_version.build or "insiders.0.0.0").lstrip("insiders.")
 
         if public > public_deprecation or insiders > insiders_deprecation:
             with new_console() as console:
