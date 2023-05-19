@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import inspect
 import logging
 import os
 import sys
@@ -14,7 +13,7 @@ from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import BasePlugin
 from path import Path
 
-from iconoclast.plugins import new_console
+from iconoclast.plugins import utils
 
 symlink = Path(__file__).parent / ".overrides" / ".icons" / "fontawesome"
 
@@ -26,7 +25,7 @@ class IconokitConfig(Config):
 
     def validate(self) -> Tuple[ConfigWarnings, ConfigErrors]:
         warnings, errors = super().validate()
-        self.enabled = bool(self.name and self.token)
+        self.enabled = self.name and self.token
         return warnings, errors
 
 
@@ -37,26 +36,33 @@ class IconoclastConfig(Config):
 
 class IconoclastPlugin(BasePlugin[IconoclastConfig]):
     def on_config(self, config: MkDocsConfig) -> Optional[Config]:
+        if config.theme.name != "material":
+            log.error(
+                utils.ansify(
+                    "Iconoclast requires requires that your MkDocs theme be set to [green]Material for MkDocs[/]."
+                )
+            )
+            sys.exit(1)
+
         icon_dirs = [symlink]
-        css = "iconoclast.min.css"
+        css = "fontawesome.min.css"
 
         symlink.unlink_p()
         symlink.parent.makedirs_p()
 
-        (get_package_path() / "svgs").symlink(symlink)
+        (utils.get_package_path() / "svgs").symlink(symlink)
 
         if self.config.kit.enabled:
             try:
                 import iconokit
             except ImportError:
-                with new_console() as console:
-                    console.print(
-                        "You haven't installed a Font Awesome kit. "
-                        "Run [cyan]iconoclast install[/] or change your settings "
-                        "for the [magenta]iconoclast[/] plugin.",
+                log.error(
+                    utils.ansify(
+                        "You've configured a Font Awesome kit, but haven't installed it. "
+                        "Run [cyan]iconoclast install[/], then try again."
                     )
-                    log.error(console.export_text(styles=True))
-                    sys.exit(1)
+                )
+                sys.exit(1)
             else:
                 icon_dirs.append(iconokit.icons())
                 css = iconokit.kit("css")
@@ -80,27 +86,11 @@ class IconoclastPlugin(BasePlugin[IconoclastConfig]):
         symlink.parent.parent.rmtree_p()
 
         if self.config.css and not self.config.kit.enabled:
-            fa_path = get_package_path()
+            fa_path = utils.get_package_path()
             site_dir = Path(config.site_dir)
 
-            (fa_path / "css" / "all.min.css").copy(site_dir / "iconoclast.min.css")
+            (fa_path / "css" / "all.min.css").copy(site_dir / "fontawesome.min.css")
             (fa_path / "webfonts").copytree(site_dir / "webfonts")
-
-
-def get_package_path() -> Path:
-    try:
-        import fontawesomepro
-    except ImportError:
-        with new_console() as console:
-            console.print(
-                "Font Awesome Pro is not installed. Install it or remove the [magenta]iconoclast[/] plugin."
-            )
-            log.error(console.export_text(styles=True))
-            sys.exit(1)
-    else:
-        return (
-            Path(inspect.getfile(fontawesomepro)).parent / "static" / "fontawesomepro"
-        )
 
 
 log = logging.getLogger("mkdocs")
