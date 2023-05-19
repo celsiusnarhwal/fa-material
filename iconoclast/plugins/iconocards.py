@@ -18,11 +18,10 @@ class IconocardsPlugin(SocialPlugin):
         insiders_deprecation = semver.Version.parse("4.33.0")
 
         theme_version = semver.Version.parse(version("mkdocs-material"))
+        public = str(theme_version.finalize_version())
+        insiders = theme_version.build or "insiders.0.0.0"
 
-        public = f"{theme_version.major}.{theme_version.minor}.{theme_version.patch}"
-        insiders = (theme_version.build or "insiders.0.0.0").lstrip("insiders.")
-
-        if public > public_deprecation or insiders > insiders_deprecation:
+        if public >= public_deprecation or insiders >= insiders_deprecation:
             with new_console() as console:
                 console.print(
                     "The [magenta]iconocards[/] plugin is deprecated for your version of Material for MkDocs. "
@@ -32,6 +31,7 @@ class IconocardsPlugin(SocialPlugin):
 
         return super().on_config(config)
 
+    # noinspection PyUnresolvedReferences
     def _load_logo(self, config: MkDocsConfig):
         theme = config.theme
         icon = theme["icon"]["logo"]
