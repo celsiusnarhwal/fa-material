@@ -22,7 +22,8 @@ def get_package_path() -> Path:
     except ImportError:
         log.error(
             ansify(
-                "Font Awesome Pro is not installed. Install it or remove the [magenta]iconoclast[/] plugin."
+                "Font Awesome Pro is [bold underline red]not installed[/]. Install it or remove "
+                "Iconoclast from your plugin configuration. https://iconoclast.celsiusnarhwal.dev/#installation"
             )
         )
         sys.exit(1)

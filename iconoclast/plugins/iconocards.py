@@ -18,14 +18,15 @@ class IconocardsPlugin(SocialPlugin):
         insiders_deprecation = semver.Version.parse("4.33.0")
 
         theme_version = semver.Version.parse(version("mkdocs-material"))
-        public = str(theme_version.finalize_version())
-        insiders = theme_version.build or "insiders.0.0.0"
+        public, insiders = str(
+            theme_version.replace(build=theme_version.build or "insiders.0.0.0")
+        ).split("+insiders.")
 
         if public >= public_deprecation or insiders >= insiders_deprecation:
             log.warning(
                 utils.ansify(
-                    "The [magenta]iconocards[/] plugin is deprecated for your version of Material for MkDocs. "
-                    "Use the built-in social plugin instead."
+                    "Iconocards is [bold underline red]deprecated[/] for your version of Material for MkDocs. "
+                    "Use the [bold underline green]built-in social plugin[/] instead."
                 )
             )
 

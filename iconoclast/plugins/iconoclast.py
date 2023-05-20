@@ -39,7 +39,8 @@ class IconoclastPlugin(BasePlugin[IconoclastConfig]):
         if config.theme.name != "material":
             log.error(
                 utils.ansify(
-                    "Iconoclast requires requires that your MkDocs theme be set to [green]Material for MkDocs[/]."
+                    "Iconoclast requires requires that your MkDocs theme "
+                    "be set to [bold underline green]Material for MkDocs[/].",
                 )
             )
             sys.exit(1)
@@ -59,7 +60,7 @@ class IconoclastPlugin(BasePlugin[IconoclastConfig]):
                 log.error(
                     utils.ansify(
                         "You've configured a Font Awesome kit, but haven't installed it. "
-                        "Run [cyan]iconoclast install[/], then try again."
+                        "Run [bold underline cyan]iconoclast install[/], then try again."
                     )
                 )
                 sys.exit(1)
