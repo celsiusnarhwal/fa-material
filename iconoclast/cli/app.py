@@ -174,3 +174,8 @@ def main():
     """
     Iconoclast integrates Font Awesome Pro with Material for MkDocs.
     """
+
+
+if __name__ == "__main__":
+    # For debugging only.
+    app()
