@@ -22,101 +22,87 @@ And with support for Font Awesome Kits[^2], using your own custom icons is just 
 <div class="annotate" markdown>
 
 - [:fontawesome-brands-font-awesome: Font Awesome Pro](https://fontawesome.com/plans) (1)
-- [:logo: Material for MkDocs](https://squidfunk.github.io/mkdocs-material)
+- [:logo: Material for MkDocs](https://squidfunk.github.io/mkdocs-material) (2)
 
 </div>
 
 1. Only Font Awesome 6 is supported by Iconoclast.
+2. Not included as a dependency of Iconoclast and must be installed separately.
 
-## Installation
+## Installation and Setup
 
-You'll need to install Font Awesome Pro's Python package alongside Iconoclast.
-
-Grab your Font Awesome package manager token from your [Font Awesome account page](https://fontawesome.com/account)
-and bind it to the `FONTAWESOME_PKG_TOKEN` environment variable.
-
-```bash
-export FONTAWESOME_PKG_TOKEN={FONTAWESOME_TOKEN} # (1)!
-```
-
-1. Replace `{FONTAWESOME_TOKEN}` with your Font Awesome token.
-
-Then, follow the instructions for your package manager.
+First, install Iconoclast:
 
 === ":fontawesome-brands-python: pip"
 
-    Add the following to your `requirements.txt`:
-
-    [comment]: <> (This code block is marked as TOML for annotation support only.)
-
-    === ":octicons-file-code-16: `requirements.txt`"
-
-        ```toml
-        iconoclast >= 2.0.0, < 3.0.0
-        ---extra-index-url https://dl.fontawesome.com/${FONTAWESOME_PKG_TOKEN}/fontawesome-pro/python/simple
-        fontawesomepro >= 6.0.0, < 7.0.0
-        ```
-    Then run:
-
     ```bash
-    pip install -r requirements.txt
+    pip install iconoclast
     ```
 
 === ":simple-poetry: Poetry"
 
-    Install [poetry-source-env](https://github.com/celsiusnarhwal/poetry-source-env):
-
     ```bash
-    poetry self add poetry-source-env
-    ```
-
-    Add the following to your `pyproject.toml`:
-
-    === ":octicons-file-code-16: `pyproject.toml`"
-
-        ```toml
-        [[tool.poetry.source]]
-        name = "fontawesome"
-        url = "https://dl.fontawesome.com/${FONTAWESOME_PKG_TOKEN}/fontawesome-pro/python/simple"
-        secondary = true
-        ```
-
-    Then run:
-
-    ```bash
-    poetry add iconoclast && poetry add fontawesomepro --source fontawesome
+    poetry add iconoclast
     ```
 
 === ":pdm: PDM"
 
-    Add the following to your `pyproject.toml`:
-
-    === ":octicons-file-code-16: `pyproject.toml`"
-
-        ```toml
-        [tool.pdm.resolution]
-        respect-source-order = true
-
-        [[tool.pdm.source]]
-        name = "fontawesome"
-        url = "https://dl.fontawesome.com/${FONTAWESOME_PKG_TOKEN}/fontawesome-pro/python/simple"
-        verify_ssl = true
-
-        [[tool.pdm.source]]
-        name = "pypi" # (1)!
-        url = "https://pypi.org/simple"
-        verify_ssl = true
-        ```
-
-        1. Explicitly including PyPI while enabling `tool.pdm.resolution.respect-source-order` forces PDM to prefer
-        Font Awesome's package index over PyPI, preventing potential dependency injection attacks if say, a bad actor
-        were to publish a malicious package named `fontawesomepro` to PyPI.
-
-    Then run:
-
     ```bash
-    pdm add iconoclast fontawesomepro
+    pdm add iconoclast
     ```
+
+Then, grab your Font Awesome package manager token from your [Font Awesome account page](https://fontawesome.com/account)
+and add it to Iconoclast's plugin configuration.
+
+You can do this via the following configuration option:
+
+`token`
+
+: :octicons-milestone-24: Default: `#!yaml !ENV [FONTAWESOME_PKG_TOKEN, FONTAWESOME_NPM_AUTH_TOKEN]` — Your Font Awesome
+package manager token.
+
+    <div class="annotate" markdown>
+
+    === "Via environment variables"
+
+        If your token is bound to the `FONTAWESOME_PKG_TOKEN` or `FONTAWESOME_NPM_AUTH_TOKEN` environment variables,
+        Iconoclast will detect it automatically and you can omit this option from the plugin configuration.
+
+        Otherwise, you can specify an environment variable with the `#!yaml !ENV` tag:
+
+        === ":octicons-file-code-16: `mkdocs.yml`"
+
+            ```yaml
+            plugins:
+                - iconoclast:
+                    token: !ENV SOME_ENVIRONMENT_VARIABLE
+            ```
+
+    === "Via explicit hardcoding"
+
+        You can explicitly hardcode your token in `mkdocs.yml` if you want, though this is obviously not recommended.
+
+        === ":octicons-file-code-16: `mkdocs.yml`"
+
+            ```yaml
+            plugins:
+                - iconoclast:
+                    token: OATO-GA-MATA-YORUSHIKUTE (1)
+            ```
+
+    </div>
+
+    1. Replace with your actual package manager token.
+
+Finally, install Font Awesome Pro with the Iconoclast CLI:
+
+```bash
+iconoclast setup # (1)!
+```
+
+1.  !!! tip
+
+        The Iconoclast CLI can also be invoked as `icl`.
 
 ## Configuration
 
@@ -134,7 +120,7 @@ Then, follow the instructions for your package manager.
                 emoji_generator: !!python/name:materialx.emoji.to_svg
         ```
 
-The simplest possible configuration is just adding the `iconoclast` plugin to `mkdocs.yml`:
+The simplest possible configuration is just adding Iconoclast's plugin to `mkdocs.yml`:
 
 === ":octicons-file-code-16: `mkdocs.yml`"
 
@@ -151,18 +137,18 @@ You can now use Font Awesome Pro icons in Markdown files just as you would Font 
 !!! warning "Deprecation warning"
 
     If you're using [Material for MkDocs Insiders](https://squidfunk.github.io/mkdocs-material/insiders/) 4.33.0 or
-    later, the built-in social plugin has undergone a rewrite that renders `iconocards` obsolete. You can safely ignore
+    later, the built-in social plugin has undergone a rewrite that renders Iconocards obsolete. You can safely ignore
     the content of this section and use the built-in social plugin as usual.
 
-    As of Iconoclast 2.0.2, `iconocards` will emit a deprecation warning on versions of Material for MkDocs where it is
+    As of Iconoclast 2.0.2, Iconocards will emit a deprecation warning on versions of Material for MkDocs where it is
     no longer needed.
 
-Iconoclast's `iconocards` plugin is **required** to use Iconoclast icons in social cards generated by Material for
+Iconoclast's Iconocards plugin is **required** to use Iconoclast icons in social cards generated by Material for
 MkDocs' built-in social plugin.[^3]
 
 [^3]: https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/
 
-To use `iconocards`, you must **remove** the built-in social plugin from `mkdocs.yml`. Don't worry — `iconocards` is
+To use Iconocards, you must **remove** the built-in social plugin from `mkdocs.yml`. Don't worry — Iconocards is
 fully backwards-compatible with the built-in social plugin; you won't lose any functionality.
 
 === ":octicons-file-code-16: `mkdocs.yml`"
@@ -173,9 +159,9 @@ fully backwards-compatible with the built-in social plugin; you won't lose any f
         - iconocards # (1)!
     ```
 
-    1. `iconocards` **must** be declared *after* `iconoclast`.
+    1. Iconocards **must** be declared *after* Iconoclast.
 
-`iconocards` supports all [configuration options](https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/?h=social#built-in-social-plugin) of the built-in social plugin.
+Iconocards supports all [configuration options](https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/?h=social#built-in-social-plugin) of the built-in social plugin.
 
 ### CSS Support
 
@@ -217,31 +203,19 @@ To use a Kit, you'll have to set up the following configuration options:
         plugins:
           - iconoclast:
               kit:
-                name: Jajankit
+                name: My Kit
         ```
 
 `kit.token`
 
 : :octicons-milestone-24: Default: `#!yaml !ENV FONTAWESOME_API_TOKEN` — Your Font Awesome API token. (1)
 
-    === "Via `FONTAWESOME_API_TOKEN`"
+    === "Via environment variables"
 
         If your token is bound to the `FONTAWESOME_API_TOKEN` environment variable, Iconoclast will detect it
         automatically and you can omit this option from `mkdocs.yml`.
 
-        === ":octicons-file-code-16: `mkdocs.yml`"
-
-            ```yaml
-            plugins:
-              - iconoclast:
-                  kit:
-                    name: Jajankit
-            ```
-
-    === "Via another environment variable"
-
-        If your token is bound to an environment variable other than `FONTAWESOME_API_TOKEN`, you can specify it with
-        the `#!yaml !ENV` tag.
+        Otherwise, you can specify a different environment variable it with the `#!yaml !ENV` tag:
 
         === ":octicons-file-code-16: `mkdocs.yml`"
 
@@ -249,7 +223,7 @@ To use a Kit, you'll have to set up the following configuration options:
             plugins:
                 - iconoclast:
                     kit:
-                      name: Jajankit
+                      name: My kit
                       token: !ENV SOME_ENVIRONMENT_VARIABLE
             ```
 
@@ -263,8 +237,8 @@ To use a Kit, you'll have to set up the following configuration options:
             plugins:
                 - iconoclast:
                     kit:
-                      name: Jajankit
-                      token: OATO-GA-MATA-YORUSHIKUTE (2)
+                      name: My Kit
+                      token: OSAKI-MO-MAE-MO-YOROSHIKU-NE (2)
             ```
 
 </div>
@@ -277,10 +251,8 @@ To use a Kit, you'll have to set up the following configuration options:
 Once you've configured your Kit, you need to install it:
 
 ```bash
-iconoclast install # (1)!
+iconoclast install
 ```
-
-1. If you're a fan of shortcuts, `icl install` also works.
 
 You can then reference your custom icons in Markdown files with the syntax `:fontawesome-kit-[icon-name]:`
 (e.g. `:fontawesome-kit-solid-rakugo-sensu:`).
