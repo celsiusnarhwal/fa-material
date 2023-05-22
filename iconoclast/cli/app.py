@@ -2,11 +2,13 @@ import subprocess
 from datetime import datetime
 from pathlib import Path as StdPath
 from tempfile import TemporaryDirectory
+from typing import Callable
 
 import requests
 import typer
 from dict_deep import deep_get
 from halo import Halo
+from merge_args import merge_args
 from mkdocs.config.base import load_config
 from path import Path
 from sgqlc.endpoint.requests import RequestsEndpoint
@@ -16,11 +18,66 @@ from yarl import URL
 from iconoclast.cli.context import set_context
 from iconoclast.cli.exceptions import Iconoquit
 from iconoclast.cli.graphql.schema import fontawesome_schema as schema
-from iconoclast.plugins.iconoclast import IconokitConfig
+from iconoclast.plugins.iconoclast import IconoclastConfig, IconokitConfig
 
 app = typer.Typer(rich_markup_mode="rich")
 
 here = Path(__file__).parent
+
+
+def common_options(func: Callable):
+    # noinspection PyUnusedLocal
+    @merge_args(func)
+    def wrapper(
+        ctx: typer.Context,
+        config_file: StdPath = typer.Option(
+            None,
+            "--config-file",
+            "-F",
+            exists=True,
+            dir_okay=False,
+            help="The path to your MkDocs configuration file.",
+        ),
+        **kwargs,
+    ):
+        return func(ctx=ctx, **kwargs)
+
+    return wrapper
+
+
+@app.command(
+    name="setup",
+    context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
+)
+@set_context
+@common_options
+def setup(ctx: typer.Context):
+    """
+    Downlod Font Awesome Pro. Supports all options of [cyan]pip install[/cyan] in addition to the ones listed below.
+    """
+    forbidden = {"--index-url", "-i"}.intersection(ctx.args)
+
+    if forbidden:
+        raise Iconoquit(
+            f"The {forbidden.pop()} option is not supported by this command."
+        )
+
+    config_file = ctx.params.get("config_file")
+    config = load_config(str(config_file) if config_file else None)
+    plugin_config: IconoclastConfig = config.plugins["iconoclast"].config
+    token = plugin_config.token
+
+    if not token:
+        raise Iconoquit(
+            "You must specify a Font Awesome package manager token in Iconoclast's plugin configuration to use this "
+            "command."
+        )
+
+    index_url = f"https://dl.fontawesome.com/{token}/fontawesome-pro/python/simple"
+
+    subprocess.run(
+        ["pip", "install", "fontawesomepro", "--index-url", index_url, *ctx.args]
+    )
 
 
 @app.command(
@@ -28,20 +85,15 @@ here = Path(__file__).parent
     context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
 )
 @set_context
+@common_options
 def install(
     ctx: typer.Context,
-    config_file: StdPath = typer.Option(
-        None,
-        "--config-file",
-        exists=True,
-        dir_okay=False,
-        help="The path to your MkDocs configuration file.",
-    ),
 ):
     """
     Install a kit. This command supports all options of [cyan]pip install[/cyan] in addition to the ones listed
     below.
     """
+    config_file = ctx.params.get("config_file")
     config = load_config(str(config_file) if config_file else None)
     kit_config: IconokitConfig = config.plugins["iconoclast"].config.kit
 
