@@ -37,6 +37,7 @@ def common_options(func: Callable):
             exists=True,
             dir_okay=False,
             help="The path to your MkDocs configuration file.",
+            show_default=False,
         ),
         **kwargs,
     ):
@@ -48,12 +49,13 @@ def common_options(func: Callable):
 @app.command(
     name="setup",
     context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
+    epilog="This command supports all options of [cyan]pip install[/cyan] in addition to the ones above.",
 )
 @set_context
 @common_options
 def setup(ctx: typer.Context):
     """
-    Downlod Font Awesome Pro. Supports all options of [cyan]pip install[/cyan] in addition to the ones listed below.
+    Downlod Font Awesome Pro.
     """
     forbidden = {"--index-url", "-i"}.intersection(ctx.args)
 
@@ -83,6 +85,7 @@ def setup(ctx: typer.Context):
 @app.command(
     name="install",
     context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
+    epilog="This command supports all options of [cyan]pip install[/cyan] in addition to the ones above.",
 )
 @set_context
 @common_options
@@ -90,8 +93,7 @@ def install(
     ctx: typer.Context,
 ):
     """
-    Install a kit. This command supports all options of [cyan]pip install[/cyan] in addition to the ones listed
-    below.
+    Install a kit.
     """
     config_file = ctx.params.get("config_file")
     config = load_config(str(config_file) if config_file else None)
