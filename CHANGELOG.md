@@ -4,6 +4,14 @@ Notable changes to Iconoclast will be documented here. Breaking changes are mark
 
 Iconoclast adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## <a name="2-1-0">[2.1.0] - 2023-06-04</a>
+
+### Added
+
+- Font Awesome Pro can now be installed via the new `iconoclast setup` command. This command supersedes the old,
+  package manager-dependent, ways of installing Font Awesome Pro, which still work, but are no longer documented or
+  supported. ([Docs](https://iconoclast.celsiusnarhwal.dev/#installation-and-setup))
+
 ## <a name="2-0-3">[2.0.3] - 2023-05-16</a>
 
 ### Fixed
