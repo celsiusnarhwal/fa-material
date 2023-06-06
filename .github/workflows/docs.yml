@@ -28,7 +28,7 @@ jobs:
           python-version: 3.11.1
 
       - name: Set Up Poetry
-        run: pipx install poetry==1.4.2 && poetry self add poetry-source-env
+        run: pipx install poetry==1.5.0 && poetry self add poetry-source-env
 
       - name: Set Up Cache
         uses: actions/cache@v3
