@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "iconoclast"
-version = "2.0.3"
+version = "2.1.0"
 description = "Font Awesome Pro integration for Material for MkDocs"
 authors = ["celsius narhwal <hello@celsiusnarhwal.dev>"]
 readme = "README.md"
@@ -29,21 +29,15 @@ rich-tracebacks = "^1.2.1"
 cairosvg = "^2.7.0"
 pillow = "^9.5.0"
 poethepoet = "^0.19.0"
-fontawesomepro = { version = "^6.4.0", source = "fontawesome" }
 mkdocs-material = { git = "https://github.com/squidfunk/mkdocs-material-insiders" }
-
-[[tool.poetry.source]]
-name = "fontawesome"
-url = "https://dl.fontawesome.com/${FONTAWESOME_PKG_TOKEN}/fontawesome-pro/python/simple"
-secondary = true
 
 [tool.poetry.scripts]
 iconoclast = "iconoclast.cli.app:app"
 icl = "iconoclast.cli.app:app"
 
 [tool.poetry.plugins."mkdocs.plugins"]
-iconoclast = "iconoclast.plugins.iconoclast:IconoclastPlugin"
-iconocards = "iconoclast.plugins.iconocards:IconocardsPlugin"
+iconoclast = "iconoclast.plugins.main:IconoclastPlugin"
+iconocards = "iconoclast.plugins.cards:IconocardsPlugin"
 
 [tool.black]
 target-version = ["py37"]
