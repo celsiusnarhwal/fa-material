@@ -94,6 +94,8 @@ iconoclast setup # (1)!
         run: echo "::add-ask::${{ secrets.FONTAWESOME_PKG_TOKEN }}"
     ```
 
+    Alternatively, you can run `iconoclast setup` with the `--quiet`/`-q` flag to suppress its output entirely.
+
 ## Configuration
 
 !!! warning "Iconoclast requires emoji"
