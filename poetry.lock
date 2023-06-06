@@ -381,22 +381,6 @@ python-dotenv = "*"
 dev = ["check-manifest"]
 
 [[package]]
-name = "fontawesomepro"
-version = "6.4.0"
-description = "Font Awesome Pro Files"
-category = "dev"
-optional = false
-python-versions = "*"
-files = [
-    {file = "fontawesomepro-6.4.0-py3-none-any.whl", hash = "sha256:ab6bbf52b111f88381e7f818c3e3b961581f0bbfafa5ca7a8325821b39e0c506"},
-]
-
-[package.source]
-type = "legacy"
-url = "https://dl.fontawesome.com/${FONTAWESOME_PKG_TOKEN}/fontawesome-pro/python/simple"
-reference = "fontawesome"
-
-[[package]]
 name = "ghp-import"
 version = "2.1.0"
 description = "Copy your docs directly to the gh-pages branch."
@@ -1750,4 +1734,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "089c32e3262b1cd06ab6d5016814e915ad62b7bfb0d29af4c1c9e79cf6b22e07"
+content-hash = "e66bb460eebedec1ccc244b04fa81e824193c0b230e78310832a34e94f353d22"
