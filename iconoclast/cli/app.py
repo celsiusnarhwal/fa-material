@@ -1,4 +1,5 @@
 import subprocess
+import sys
 from datetime import datetime
 from pathlib import Path as StdPath
 from tempfile import TemporaryDirectory
@@ -7,7 +8,7 @@ from typing import Callable
 import requests
 import typer
 from dict_deep import deep_get
-from halo import Halo
+from log_symbols import LogSymbols
 from merge_args import merge_args
 from mkdocs.config.base import load_config
 from path import Path
@@ -18,11 +19,13 @@ from yarl import URL
 from iconoclast.cli.context import set_context
 from iconoclast.cli.exceptions import Iconoquit
 from iconoclast.cli.graphql.schema import fontawesome_schema as schema
-from iconoclast.plugins.iconoclast import IconoclastConfig, IconokitConfig
+from iconoclast.plugins.main import IconoclastConfig, IconokitConfig
 
 app = typer.Typer(rich_markup_mode="rich")
 
 here = Path(__file__).parent
+
+pip = [sys.executable, "-m", "pip", "--disable-pip-version-check"]
 
 
 def common_options(func: Callable):
@@ -78,7 +81,7 @@ def setup(ctx: typer.Context):
     index_url = f"https://dl.fontawesome.com/{token}/fontawesome-pro/python/simple"
 
     subprocess.run(
-        ["pip", "install", "fontawesomepro", "--index-url", index_url, *ctx.args]
+        [*pip, "install", "fontawesomepro", "--index-url", index_url, *ctx.args],
     )
 
 
@@ -157,15 +160,12 @@ def install(
                 )
                 (icons_dir / icon["name"]).with_suffix(".svg").write_text(svg)
 
-            with Halo(
-                text=f"Installing {kit_config.name}...", spinner="dots"
-            ) as spinner:
-                subprocess.run(
-                    f"pip install {iconokit_root.abspath()} {' '.join(ctx.args)}".split(),
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.STDOUT,
-                )
-                spinner.succeed(f"Kit installed!")
+            subprocess.run(
+                [*pip, "install", iconokit_root.abspath(), *ctx.args],
+            )
+
+            if not {"--quiet", "-q"}.intersection(ctx.args):
+                print(f"{LogSymbols.SUCCESS.value} Installed {kit_config.name}.")
 
 
 @app.callback(
