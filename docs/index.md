@@ -52,47 +52,25 @@ First, install Iconoclast:
     ```
 
 Then, grab your Font Awesome package manager token from your [Font Awesome account page](https://fontawesome.com/account)
-and add it to Iconoclast's plugin configuration.
+and add it to Iconoclast's plugin configuration. (1)
+{ .annotate }
 
-You can do this via the following configuration option:
+1. Font Awesome may require you to generate a token first.
 
-`token`
+???+ config "`token`: Your Font Awesome package manager token."
 
-: :octicons-milestone-24: Default: `#!yaml !ENV [FONTAWESOME_PKG_TOKEN, FONTAWESOME_NPM_AUTH_TOKEN]` — Your Font Awesome
-package manager token.
+    If your token is bound to the `FONTAWESOME_PKG_TOKEN` or `FONTAWESOME_NPM_AUTH_TOKEN` environment variables,
+    Iconoclast will detect it automatically and you can omit this option from the plugin configuration.
 
-    <div class="annotate" markdown>
+    Otherwise, you can specify an environment variable with the `#!yaml !ENV` tag:
 
-    === "Via environment variables"
+    === ":octicons-file-code-16: `mkdocs.yml`"
 
-        If your token is bound to the `FONTAWESOME_PKG_TOKEN` or `FONTAWESOME_NPM_AUTH_TOKEN` environment variables,
-        Iconoclast will detect it automatically and you can omit this option from the plugin configuration.
-
-        Otherwise, you can specify an environment variable with the `#!yaml !ENV` tag:
-
-        === ":octicons-file-code-16: `mkdocs.yml`"
-
-            ```yaml
-            plugins:
-                - iconoclast:
-                    token: !ENV SOME_ENVIRONMENT_VARIABLE
-            ```
-
-    === "Via explicit hardcoding"
-
-        You can explicitly hardcode your token in `mkdocs.yml` if you want, though this is obviously not recommended.
-
-        === ":octicons-file-code-16: `mkdocs.yml`"
-
-            ```yaml
-            plugins:
-                - iconoclast:
-                    token: OATO-GA-MATA-YORUSHIKUTE (1)
-            ```
-
-    </div>
-
-    1. Replace with your actual package manager token.
+        ```yaml
+        plugins:
+            - iconoclast:
+                token: !ENV SOME_ENVIRONMENT_VARIABLE
+        ```
 
 Finally, install Font Awesome Pro with the Iconoclast CLI:
 
@@ -103,6 +81,18 @@ iconoclast setup # (1)!
 1.  !!! tip
 
         The Iconoclast CLI can also be invoked as `icl`.
+
+!!! danger "Iconoclast and GitHub Actions"
+
+    If you run `iconoclast setup` in a GitHub actions workflow, your Font Awesome package manager token could be
+    exposed in workflow logs. To avoid this, store your token as a repository secret and mask it before running
+    `iconoclast setup`:
+
+    ```yaml
+    steps:
+      - name: Add mask
+        run: echo "::add-ask::${{ secrets.FONTAWESOME_PKG_TOKEN }}"
+    ```
 
 ## Configuration
 
@@ -170,11 +160,9 @@ Iconoclast can automatically add the necessary CSS to your site so that you can 
 as you would in any other website (e.g, `#!html <i class="fa-solid fa-rocket"></i>` would render as
 :fontawesome-solid-rocket:).
 
-You can do this via the following configuration option:
+???+ config "`css`: Whether to add Font Awesome's CSS to your site."
 
-`css`
-
-: :octicons-milestone-24: Default: `false` — Whether to add Font Awesome's CSS to your site.
+    :octicons-milestone-24: Default: `false`
 
     === ":octicons-file-code-16: `mkdocs.yml`"
 
@@ -187,15 +175,12 @@ You can do this via the following configuration option:
 ### Using Kits
 
 Have a Font Awesome Kit[^2] with custom icons that you'd like
-to use in your project? Iconoclast has you covered.
-
-To use a Kit, you'll have to set up the following configuration options:
+to use in your project? Iconoclast has you covered — just add your kit name and Font Awesome API token
+to the plugin's configuration.
 
 <div class="annotate" markdown>
 
-`kit.name`
-
-: :octicons-milestone-24: The name of the Kit to use.
+???+ config "`kit.name`: The name of the Kit to use."
 
     === ":octicons-file-code-16: `mkdocs.yml`"
 
@@ -206,47 +191,27 @@ To use a Kit, you'll have to set up the following configuration options:
                 name: My Kit
         ```
 
-`kit.token`
+???+ config "`kit.token`: Your Font Awesome API token. (1)"
 
-: :octicons-milestone-24: Default: `#!yaml !ENV FONTAWESOME_API_TOKEN` — Your Font Awesome API token. (1)
+    If your token is bound to the `FONTAWESOME_API_TOKEN` environment variable, Iconoclast will detect it
+    automatically and you can omit this option from the plugin configuration.
 
-    === "Via environment variables"
+    Otherwise, you can specify a different environment variable it with the `#!yaml !ENV` tag:
 
-        If your token is bound to the `FONTAWESOME_API_TOKEN` environment variable, Iconoclast will detect it
-        automatically and you can omit this option from `mkdocs.yml`.
+    === ":octicons-file-code-16: `mkdocs.yml`"
 
-        Otherwise, you can specify a different environment variable it with the `#!yaml !ENV` tag:
-
-        === ":octicons-file-code-16: `mkdocs.yml`"
-
-            ```yaml
-            plugins:
-                - iconoclast:
-                    kit:
-                      name: My kit
-                      token: !ENV SOME_ENVIRONMENT_VARIABLE
-            ```
-
-    === "Via explicit hardcoding"
-
-        You can explicitly hardcode your token in `mkdocs.yml` if you want, though this is obviously not recommended.
-
-        === ":octicons-file-code-16: `mkdocs.yml`"
-
-            ```yaml
-            plugins:
-                - iconoclast:
-                    kit:
-                      name: My Kit
-                      token: OSAKI-MO-MAE-MO-YOROSHIKU-NE (2)
-            ```
+        ```yaml
+        plugins:
+            - iconoclast:
+                kit:
+                  name: My kit
+                  token: !ENV SOME_ENVIRONMENT_VARIABLE
+        ```
 
 </div>
 
 1. This is distinct from your Font Awesome package manager token. You can find your API token on your
-   [Font Awesome account page](https://fontawesome.com/account) (you may need to generate one first).
-
-2. Replace with your actual API token.
+   [Font Awesome account page](https://fontawesome.com/account) (Font Awesome may require you to generate one first).
 
 Once you've configured your Kit, you need to install it:
 
