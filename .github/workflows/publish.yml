@@ -20,6 +20,6 @@ jobs:
         uses: celsiusnarhwal/poetry-publish@v2
         with:
           python-version: 3.12.6
-          poetry-version: $(cat .poetry-version)
+          poetry-version: 1.8.2
           build: true
           token: ${{ secrets.PYPI_TOKEN }}
