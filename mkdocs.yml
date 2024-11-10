@@ -31,20 +31,20 @@ theme:
     - search.suggest
     - toc.follow
     - toc.integrate
+    -
   palette:
-    - scheme: slate
-      primary: deep purple
-      accent: deep purple
-      toggle:
-        icon: light-mode
-        name: Step into the light
+    - media: "(prefers-color-scheme)"
 
-    - scheme: indigo
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
       primary: deep purple
       accent: deep purple
-      toggle:
-        icon: dark-mode
-        name: Embrace the dark
+
+    - media: "(prefers-color-scheme: light)"
+      scheme: indigo
+      primary: deep purple
+      accent: deep purple
+
   font:
     text: Roboto
     code: Roboto Mono
@@ -65,6 +65,7 @@ plugins:
   - social
   - iconoclast:
       css: true
+  - artwall
 
 # Extensions
 markdown_extensions:
@@ -83,11 +84,8 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      options:
-        custom_icons:
-          - docs/.overrides/.icons
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span

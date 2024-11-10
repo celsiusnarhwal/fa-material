@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "iconoclast"
-version = "2.1.0"
+version = "3.0.0"
 description = "Font Awesome Pro integration for Material for MkDocs"
 authors = ["celsius narhwal <hello@celsiusnarhwal.dev>"]
 readme = "README.md"
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 decorator = "^5.1.1"
 dict-deep = "^4.1.2"
 halo = "^0.0.31"
@@ -18,22 +18,23 @@ path = "^16.6.0"
 semver = "^3.0.0"
 sgqlc = "^16.1"
 yarl = "^1.9.2"
-typer = { extras = ["all"], version = "^0.9.0" }
+typer = { extras = ["all"], version = ">=0.9.0,<1.0" }
+inquirerpy = "^0.3.4"
 
 [tool.poetry.group.dev.dependencies]
 doppler-env = "^0.3.1"
-mkdocs-material = "^9.1.8"
 rich-tracebacks = "^1.2.1"
 
 [tool.poetry.group.docs.dependencies]
 cairosvg = "^2.7.0"
 pillow = "^9.5.0"
 poethepoet = "^0.19.0"
-mkdocs-material = { git = "https://github.com/squidfunk/mkdocs-material-insiders" }
+artwall = {git = "https://github.com/celsiusnarhwal/artwall"}
+mkdocs-material = {git = "https://github.com/squidfunk/mkdocs-material-insiders"}
 
 [tool.poetry.scripts]
-iconoclast = "iconoclast.cli.app:app"
-icl = "iconoclast.cli.app:app"
+iconoclast = "iconoclast.cli.cli:app"
+icl = "iconoclast.cli.cli:app"
 
 [tool.poetry.plugins."mkdocs.plugins"]
 iconoclast = "iconoclast.plugins.main:IconoclastPlugin"

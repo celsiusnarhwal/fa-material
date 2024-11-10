@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import logging
 import os
+import shutil
 import sys
+from pathlib import Path
 from typing import Optional, Tuple
 
 from dict_deep import deep_get, deep_set
@@ -11,7 +13,6 @@ from mkdocs.config import config_options as c
 from mkdocs.config.base import Config, ConfigErrors, ConfigWarnings
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import BasePlugin
-from path import Path
 
 from iconoclast.plugins import utils
 
@@ -54,13 +55,14 @@ class IconoclastPlugin(BasePlugin[IconoclastConfig]):
         icon_dirs = [symlink]
         css = "fontawesome.min.css"
 
-        symlink.unlink_p()
-        symlink.parent.makedirs_p()
+        symlink.unlink(missing_ok=True)
+        symlink.parent.mkdir(parents=True, exist_ok=True)
 
-        (utils.get_package_path() / "svgs").symlink(symlink)
+        symlink.symlink_to(utils.get_package_path() / "svgs")
 
         if self.config.kit.enabled:
             try:
+                # noinspection PyUnresolvedReferences
                 import iconokit
             except ImportError:
                 log.error(
@@ -90,14 +92,16 @@ class IconoclastPlugin(BasePlugin[IconoclastConfig]):
         return config
 
     def on_post_build(self, *, config: MkDocsConfig) -> None:
-        symlink.parent.parent.rmtree_p()
+        shutil.rmtree(symlink.parent.parent)
 
         if self.config.css and not self.config.kit.enabled:
             fa_path = utils.get_package_path()
             site_dir = Path(config.site_dir)
 
-            (fa_path / "css" / "all.min.css").copy(site_dir / "fontawesome.min.css")
-            (fa_path / "webfonts").copytree(site_dir / "webfonts")
+            shutil.copy(
+                fa_path / "css" / "all.min.css", site_dir / "fontawesome.min.css"
+            )
+            shutil.copytree(fa_path / "webfonts", site_dir / "webfonts")
 
 
 log = logging.getLogger("mkdocs")

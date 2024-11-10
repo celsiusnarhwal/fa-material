@@ -33,23 +33,10 @@ And with support for Font Awesome Kits[^2], using your own custom icons is just 
 
 First, install Iconoclast:
 
-=== ":fontawesome-brands-python: pip"
 
-    ```bash
-    pip install iconoclast
-    ```
-
-=== ":simple-poetry: Poetry"
-
-    ```bash
-    poetry add iconoclast
-    ```
-
-=== ":pdm: PDM"
-
-    ```bash
-    pdm add iconoclast
-    ```
+```bash
+pip install iconoclast
+```
 
 Then, grab your Font Awesome package manager token from your [Font Awesome account page](https://fontawesome.com/account)
 and add it to Iconoclast's plugin configuration. (1)
@@ -75,7 +62,7 @@ and add it to Iconoclast's plugin configuration. (1)
 Finally, install Font Awesome Pro with the Iconoclast CLI:
 
 ```bash
-iconoclast setup # (1)!
+iconoclast install # (1)!
 ```
 
 1.  !!! tip
@@ -84,9 +71,9 @@ iconoclast setup # (1)!
 
 !!! danger "Iconoclast and GitHub Actions"
 
-    If you run `iconoclast setup` in a GitHub actions workflow, your Font Awesome package manager token could be
+    If you run `iconoclast install` in a GitHub actions workflow, your Font Awesome package manager token could be
     exposed in workflow logs. To avoid this, store your token as a repository secret and mask it before running
-    `iconoclast setup`:
+    `iconoclast install`:
 
     ```yaml
     steps:
@@ -94,7 +81,7 @@ iconoclast setup # (1)!
         run: echo "::add-ask::${{ secrets.FONTAWESOME_PKG_TOKEN }}"
     ```
 
-    Alternatively, you can run `iconoclast setup` with the `--quiet`/`-q` flag to suppress its output entirely.
+    Alternatively, you can run `iconoclast install` with the `--quiet`/`-q` flag to suppress its output entirely.
 
 ## Configuration
 
@@ -108,8 +95,8 @@ iconoclast setup # (1)!
         markdown_extensions:
             - attr_list
             - pymdownx.emoji:
-                emoji_index: !!python/name:materialx.emoji.twemoji
-                emoji_generator: !!python/name:materialx.emoji.to_svg
+                emoji_index: !!python/name:material.extensions.emoji.twemoji
+                emoji_generator: !!python/name:material.extensions.emoji.to_svg
         ```
 
 The simplest possible configuration is just adding Iconoclast's plugin to `mkdocs.yml`:
@@ -218,7 +205,7 @@ to the plugin's configuration.
 Once you've configured your Kit, you need to install it:
 
 ```bash
-iconoclast install
+iconoclast kit
 ```
 
 You can then reference your custom icons in Markdown files with the syntax `:fontawesome-kit-[icon-name]:`
@@ -229,7 +216,7 @@ If you've enabled [CSS Support](#css-support), you can also reference your custo
 
 !!! tip
 
-    You need to rerun `iconoclast install` every time you make a change to your Kit's name or custom icons.
+    You need to rerun `iconoclast kit` every time you make a change to your Kit's name or custom icons.
 
 !!! warning "Using CSS with Kits counts against your pageviews"
 

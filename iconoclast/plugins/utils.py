@@ -4,9 +4,9 @@ import inspect
 import logging
 import os
 import sys
+from pathlib import Path
 
 from mkdocs.commands.build import DuplicateFilter
-from path import Path
 from rich.console import Console
 
 
@@ -22,7 +22,8 @@ def get_package_path() -> Path:
     except ImportError:
         log.error(
             ansify(
-                "Font Awesome Pro is [bold underline red]not installed[/]. Run [bold underline green]icl setup[/]."
+                "Font Awesome Pro is [bold underline red]not installed[/]. "
+                "Run [bold underline green]iconoclast install[/] to install it."
             )
         )
         sys.exit(1)

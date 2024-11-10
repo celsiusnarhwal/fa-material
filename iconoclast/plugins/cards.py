@@ -1,11 +1,11 @@
 import logging
+from pathlib import Path
 
 import semver
 from importlib_metadata import version
 from material.plugins.social.plugin import SocialPlugin
 from mkdocs.commands.build import DuplicateFilter
 from mkdocs.config.defaults import MkDocsConfig
-from path import Path
 
 from iconoclast.plugins import utils
 

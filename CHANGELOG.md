@@ -4,6 +4,15 @@ Notable changes to Iconoclast will be documented here. Breaking changes are mark
 
 Iconoclast adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## <a name="3.0.0">[3.0.0] - 2024-11-10</a>
+
+### Changes
+
+- 🚩 Iconoclast now requires Python 3.8 or later.
+- 🚩 `iconoclast install`, which previous installed specified Font Awesome Kit, now installs Font Awesome Pro.
+- 🚩 `iconoclast kit` is the new command for installing a Font Awesome Kit.
+- 🚩 The `iconoclast setup` command has been removed and replaced by `iconoclast install`.
+
 ## <a name="2-1-0">[2.1.0] - 2023-06-04</a>
 
 ### Added

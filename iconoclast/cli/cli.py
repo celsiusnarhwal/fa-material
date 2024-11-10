@@ -1,7 +1,9 @@
+import contextlib
+import shutil
 import subprocess
 import sys
 from datetime import datetime
-from pathlib import Path as StdPath
+from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Callable
 
@@ -11,7 +13,6 @@ from dict_deep import deep_get
 from log_symbols import LogSymbols
 from merge_args import merge_args
 from mkdocs.config.base import load_config
-from path import Path
 from sgqlc.endpoint.requests import RequestsEndpoint
 from sgqlc.operation import Operation
 from yarl import URL
@@ -33,7 +34,7 @@ def common_options(func: Callable):
     @merge_args(func)
     def wrapper(
         ctx: typer.Context,
-        config_file: StdPath = typer.Option(
+        config_file: Path = typer.Option(
             None,
             "--config-file",
             "-F",
@@ -50,13 +51,13 @@ def common_options(func: Callable):
 
 
 @app.command(
-    name="setup",
+    name="install",
     context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
     epilog="This command supports all options of [cyan]pip install[/cyan] in addition to the ones above.",
 )
 @set_context
 @common_options
-def setup(ctx: typer.Context):
+def install(ctx: typer.Context):
     """
     Downlod Font Awesome Pro.
     """
@@ -86,13 +87,13 @@ def setup(ctx: typer.Context):
 
 
 @app.command(
-    name="install",
+    name="kit",
     context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
     epilog="This command supports all options of [cyan]pip install[/cyan] in addition to the ones above.",
 )
 @set_context
 @common_options
-def install(
+def kit(
     ctx: typer.Context,
 ):
     """
@@ -135,23 +136,22 @@ def install(
     kits = deep_get(data, "me.kits")
 
     try:
-        kit = next(k for k in kits if k["name"] == kit_config.name)
+        kit_ = next(k for k in kits if k["name"] == kit_config.name)
     except StopIteration:
         raise Iconoquit(f'Kit "{kit_config.name}" does not exist')
 
-    icons = kit["iconUploads"]
+    icons = kit_["iconUploads"]
 
     with TemporaryDirectory() as tmpdir:
-        with Path(tmpdir) as tmp:
-            iconokit_root = tmp / "iconokit"
+        with contextlib.chdir(tmpdir):
+            iconokit_root = Path.cwd() / "iconokit"
             iconokit_pkg = iconokit_root / "iconokit"
 
-            (here / "iconokit").copytree(iconokit_root)
-            (iconokit_pkg / ".token").write_text(kit["token"])
+            shutil.copytree(here / "iconokit", iconokit_root, dirs_exist_ok=True)
+            (iconokit_pkg / ".token").write_text(kit_["token"])
 
-            icons_dir = (
-                iconokit_pkg / ".overrides" / ".icons" / "fontawesome" / "kit"
-            ).makedirs_p()
+            icons_dir = iconokit_pkg / ".overrides" / ".icons" / "fontawesome" / "kit"
+            icons_dir.mkdir(parents=True, exist_ok=True)
 
             for icon in icons:
                 svg = (
@@ -161,7 +161,7 @@ def install(
                 (icons_dir / icon["name"]).with_suffix(".svg").write_text(svg)
 
             subprocess.run(
-                [*pip, "install", iconokit_root.abspath(), *ctx.args],
+                [*pip, "install", iconokit_root.absolute(), *ctx.args],
             )
 
             if not {"--quiet", "-q"}.intersection(ctx.args):
