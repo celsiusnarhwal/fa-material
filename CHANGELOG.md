@@ -28,7 +28,7 @@ plugins:
 
 ## <a name="3.0.0">[3.0.0] - 2024-11-10</a>
 
-### Changes
+### Changed
 
 - 🚩 Iconoclast now requires Python 3.8 or later.
 - 🚩 `iconoclast install`, which previous installed specified Font Awesome Kit, now installs Font Awesome Pro.
@@ -86,7 +86,7 @@ pip uninstall fa-material && pip install iconoclast
 
 ## <a name="1-1-0">[1.1.0] - 2023-04-27</a>
 
-## Added
+### Added
 
 - fa-material now supports Font Awesome 5 (it previously only supported Font Awesome 6). To use Font Awesome 5, set
   the `version` option of the `fontawesome-pro` plugin to `5` (the default is `6`).
