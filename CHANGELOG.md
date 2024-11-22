@@ -4,6 +4,22 @@ Notable changes to Iconoclast will be documented here. Breaking changes are mark
 
 Iconoclast adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## <a name="3.1.0">[3.1.0] - 2024-11-22</a>
+
+### Added
+
+- Iconoclast's new `uv` option, if set to `true`, will tell Iconoclast to prefer [uv](https://docs.astral.sh/uv)'s
+  [pip interface](https://docs.astral.sh/uv/pip/) over pip. If `uv` can't be found in your system path, Iconoclast
+  will fall back to pip.
+
+```yaml
+# mkdocs.yml
+
+plugins:
+  - iconoclast:
+      uv: true
+```
+
 ## <a name="3.0.1">[3.0.1] - 2024-11-22</a>
 
 ### Fixed
