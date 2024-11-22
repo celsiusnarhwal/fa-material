@@ -4,6 +4,12 @@ Notable changes to Iconoclast will be documented here. Breaking changes are mark
 
 Iconoclast adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## <a name="3.0.1">[3.0.1] - 2024-11-22</a>
+
+### Fixed
+
+- A minor spelling error.
+
 ## <a name="3.0.0">[3.0.0] - 2024-11-10</a>
 
 ### Changes
