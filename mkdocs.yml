@@ -65,6 +65,7 @@ plugins:
   - social
   - iconoclast:
       css: true
+      uv: true
   - artwall
 
 # Extensions

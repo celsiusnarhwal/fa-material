@@ -38,7 +38,15 @@ class IconoclastConfig(Config):
             "FONTAWESOME_PKG_TOKEN", os.getenv("FONTAWESOME_NPM_AUTH_TOKEN", "")
         ),
     )
+    uv = c.Type(bool, default=False)
     kit: IconokitConfig = c.SubConfig(IconokitConfig)
+
+    @property
+    def installer_args(self):
+        if self.uv and shutil.which("uv"):
+            return ["uv", "pip", "install"]
+
+        return [sys.executable, "-m", "pip", "--disable-pip-version-check", "install"]
 
 
 class IconoclastPlugin(BasePlugin[IconoclastConfig]):

@@ -1,7 +1,6 @@
 import contextlib
 import shutil
 import subprocess
-import sys
 from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -24,9 +23,7 @@ from iconoclast.plugins.main import IconoclastConfig, IconokitConfig
 
 app = typer.Typer(rich_markup_mode="rich")
 
-here = Path(__file__).parent
-
-pip = [sys.executable, "-m", "pip", "--disable-pip-version-check"]
+HERE = Path(__file__).parent
 
 
 def common_options(func: Callable):
@@ -61,7 +58,7 @@ def install(ctx: typer.Context):
     """
     Download Font Awesome Pro.
     """
-    forbidden = {"--index-url", "-i"}.intersection(ctx.args)
+    forbidden = {"--index-url", "--index", "-i"}.intersection(ctx.args)
 
     if forbidden:
         raise Iconoquit(
@@ -82,7 +79,7 @@ def install(ctx: typer.Context):
     index_url = f"https://dl.fontawesome.com/{token}/fontawesome-pro/python/simple"
 
     subprocess.run(
-        [*pip, "install", "fontawesomepro", "--index-url", index_url, *ctx.args],
+        [*plugin_config.installer_args, "fontawesomepro", "-i", index_url, *ctx.args],
     )
 
 
@@ -101,7 +98,8 @@ def kit(
     """
     config_file = ctx.params.get("config_file")
     config = load_config(str(config_file) if config_file else None)
-    kit_config: IconokitConfig = config.plugins["iconoclast"].config.kit
+    plugin_config: IconoclastConfig = config.plugins["iconoclast"].config
+    kit_config: IconokitConfig = plugin_config.kit
 
     if not kit_config.enabled:
         raise Iconoquit(
@@ -147,7 +145,7 @@ def kit(
             iconokit_root = Path.cwd() / "iconokit"
             iconokit_pkg = iconokit_root / "iconokit"
 
-            shutil.copytree(here / "iconokit", iconokit_root, dirs_exist_ok=True)
+            shutil.copytree(HERE / "iconokit", iconokit_root, dirs_exist_ok=True)
             (iconokit_pkg / ".token").write_text(kit_["token"])
 
             icons_dir = iconokit_pkg / ".overrides" / ".icons" / "fontawesome" / "kit"
@@ -161,7 +159,12 @@ def kit(
                 (icons_dir / icon["name"]).with_suffix(".svg").write_text(svg)
 
             subprocess.run(
-                [*pip, "install", iconokit_root.absolute(), *ctx.args],
+                [
+                    *plugin_config.installer_args,
+                    "install",
+                    iconokit_root.absolute(),
+                    *ctx.args,
+                ],
             )
 
             if not {"--quiet", "-q"}.intersection(ctx.args):

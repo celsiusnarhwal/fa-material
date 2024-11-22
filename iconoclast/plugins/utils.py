@@ -22,8 +22,8 @@ def get_package_path() -> Path:
     except ImportError:
         log.error(
             ansify(
-                "Font Awesome Pro is [bold underline red]not installed[/]. "
-                "Run [bold underline green]iconoclast install[/] to install it."
+                "Font Awesome Pro is not installed. "
+                "Run [cyan]iconoclast install[/] to install it."
             )
         )
         sys.exit(1)
