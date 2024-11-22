@@ -59,7 +59,7 @@ def common_options(func: Callable):
 @common_options
 def install(ctx: typer.Context):
     """
-    Downlod Font Awesome Pro.
+    Download Font Awesome Pro.
     """
     forbidden = {"--index-url", "-i"}.intersection(ctx.args)
 
