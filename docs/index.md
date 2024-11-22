@@ -78,7 +78,7 @@ iconoclast install # (1)!
     ```yaml
     steps:
       - name: Add mask
-        run: echo "::add-ask::${{ secrets.FONTAWESOME_PKG_TOKEN }}"
+        run: echo "::add-mask::${{ secrets.FONTAWESOME_PKG_TOKEN }}"
     ```
 
     Alternatively, you can run `iconoclast install` with the `--quiet`/`-q` flag to suppress its output entirely.
