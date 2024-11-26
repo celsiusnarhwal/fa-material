@@ -27,16 +27,16 @@ jobs:
       - name: Set Up Poetry
         run: pipx install poetry==1.8.2
 
-      - name: Set Up Cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-poetry-
+#      - name: Set Up Cache
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.cache/pypoetry
+#          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-poetry-
 
       - name: Install Dependencies
-        run: poetry install --only docs
+        run: poetry install --only docs && poetry run icl install
         env:
           POETRY_REPOSITORIES_MATERIAL_INSIDERS_URL: https://github.com/squidfunk/mkdocs-material-insiders
           POETRY_HTTP_BASIC_MATERIAL_INSIDERS_USERNAME: celsiusnarhwal
