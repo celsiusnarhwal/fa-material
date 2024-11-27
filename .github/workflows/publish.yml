@@ -7,6 +7,9 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  id-token: write
+
 jobs:
   publish:
     name: Publish to PyPI
