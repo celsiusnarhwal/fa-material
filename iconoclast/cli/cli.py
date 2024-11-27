@@ -72,8 +72,8 @@ def install(ctx: typer.Context):
 
     if not token:
         raise Iconoquit(
-            "You must specify a Font Awesome package manager token in Iconoclast's plugin configuration to use this "
-            "command."
+            "You must specify a Font Awesome package manager token in Iconoclast's plugin configuration to install "
+            "Font Awesome Pro."
         )
 
     index_url = f"https://dl.fontawesome.com/{token}/fontawesome-pro/python/simple"

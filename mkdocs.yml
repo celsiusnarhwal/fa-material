@@ -7,8 +7,6 @@ site_author: celsius narhwal
 repo_name: celsiusnarhwal/iconoclast
 repo_url: https://github.com/celsiusnarhwal/iconoclast
 
-# Navigation
-
 # Material for MkDocs
 theme:
   name: material
@@ -66,6 +64,7 @@ plugins:
   - iconoclast:
       css: true
       uv: true
+      auto: true
   - artwall
 
 # Extensions
@@ -119,15 +118,13 @@ extra:
       name: github.com/celsiusnarhwal
     - icon: simple/pypi
       link: https://pypi.org/project/iconoclast
-      name: PyPI
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/celsiusnarhwal
-      name: "@celsiusnarhwal"
+      name: pypi.org/project/iconoclast
+    - icon: simple/bluesky
+      link: https://bsky.app/profile/celsiusnarhwal.dev
+      name: bsky.app/profile/celsiusnarhwal
     - icon: fontawesome/solid/envelope
       link: mailto:hello@celsiusnarhwal.dev
-    - icon: fontawesome/solid/bug
-      link: https://github.com/celsiusnarhwal/iconoclast/issues/new/choose
-      name: Report a Bug
+      name: hello@celsiusnarhwal.dev
     - icon: celsius
       link: https://celsiusnarhwal.dev
       name: celsiusnarhwal.dev

@@ -39,6 +39,7 @@ class IconoclastConfig(Config):
         ),
     )
     uv = c.Type(bool, default=False)
+    auto = c.Type(bool, default=False)
     kit: IconokitConfig = c.SubConfig(IconokitConfig)
 
     @property
@@ -55,7 +56,7 @@ class IconoclastPlugin(BasePlugin[IconoclastConfig]):
             log.error(
                 utils.ansify(
                     "Iconoclast requires requires that your MkDocs theme "
-                    "be set to [bold underline green]Material for MkDocs[/].",
+                    "be set to [green]Material for MkDocs[/].",
                 )
             )
             sys.exit(1)
@@ -66,7 +67,7 @@ class IconoclastPlugin(BasePlugin[IconoclastConfig]):
         symlink.unlink(missing_ok=True)
         symlink.parent.mkdir(parents=True, exist_ok=True)
 
-        symlink.symlink_to(utils.get_package_path() / "svgs")
+        symlink.symlink_to(utils.get_or_install_package(config=config) / "svgs")
 
         if self.config.kit.enabled:
             try:
@@ -76,7 +77,7 @@ class IconoclastPlugin(BasePlugin[IconoclastConfig]):
                 log.error(
                     utils.ansify(
                         "You've configured a Font Awesome kit, but haven't installed it. "
-                        "Run [bold underline cyan]iconoclast install[/], then try again."
+                        "Run [cyan]iconoclast install[/], then try again."
                     )
                 )
                 sys.exit(1)
@@ -103,7 +104,7 @@ class IconoclastPlugin(BasePlugin[IconoclastConfig]):
         shutil.rmtree(symlink.parent.parent)
 
         if self.config.css and not self.config.kit.enabled:
-            fa_path = utils.get_package_path()
+            fa_path = utils.get_or_install_package()
             site_dir = Path(config.site_dir)
 
             shutil.copy(

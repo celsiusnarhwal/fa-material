@@ -26,6 +26,10 @@ dependencies = [
 iconoclast = "iconoclast.cli.cli:app"
 icl = "iconoclast.cli.cli:app"
 
+[project.entry-points."mkdocs.plugins"]
+iconoclast = "iconoclast.plugins.main:IconoclastPlugin"
+iconocards = "iconoclast.plugins.cards:IconocardsPlugin"
+
 [dependency-groups]
 docs = [
     "artwall",
@@ -33,6 +37,9 @@ docs = [
     "mkdocs>=1.6.1",
     "mkdocs-material",
     "pillow>=10.4.0",
+]
+dev = [
+    "rich-tracebacks>=1.2.1",
 ]
 
 [tool.pdm.version]
