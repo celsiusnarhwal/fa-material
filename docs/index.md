@@ -69,19 +69,15 @@ iconoclast install # (1)!
 
         The Iconoclast CLI can also be invoked as `icl`.
 
-!!! danger "Iconoclast and GitHub Actions"
-
-    If you run `iconoclast install` in a GitHub actions workflow, your Font Awesome package manager token could be
-    exposed in workflow logs. To avoid this, store your token as a repository secret and mask it before running
-    `iconoclast install`:
+!!! tip
+    Alternatively, setting Iconoclast's `auto` setting to `#!yaml true` will have automatically install Font Awesome
+    Pro whenever your documentation is built.
 
     ```yaml
-    steps:
-      - name: Add mask
-        run: echo "::add-mask::${{ secrets.FONTAWESOME_PKG_TOKEN }}"
-    ```
+    plugins:
+        - iconoclast:
+            auto: true
 
-    Alternatively, you can run `iconoclast install` with the `--quiet`/`-q` flag to suppress its output entirely.
 
 ## Configuration
 
