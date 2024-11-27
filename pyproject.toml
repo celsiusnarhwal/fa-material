@@ -1,72 +1,47 @@
-[tool.poetry]
+[project]
 name = "iconoclast"
-version = "3.1.0"
 description = "Font Awesome Pro integration for Material for MkDocs"
-authors = ["celsius narhwal <hello@celsiusnarhwal.dev>"]
 readme = "README.md"
-license = "MIT"
+dynamic = ["version"]
+authors = [
+    { name = "celsius narhwal", email = "hello@celsiusnarhwal.dev" }
+]
+requires-python = ">=3.8"
+dependencies = [
+    "decorator>=5.1.1",
+    "dict-deep>=4.1.2",
+    "halo>=0.0.31",
+    "importlib-metadata>=8.5.0",
+    "inquirerpy>=0.3.4",
+    "merge-args>=0.1.5",
+    "mkdocs>=1.6.1",
+    "path>=16.16.0",
+    "semver>=3.0.2",
+    "sgqlc>=16.4",
+    "typer>=0.13.1",
+    "yarl>=1.15.2",
+]
 
-[tool.poetry.dependencies]
-python = "^3.8"
-decorator = "^5.1.1"
-dict-deep = "^4.1.2"
-halo = "^0.0.31"
-importlib-metadata = "^6.6.0"
-merge-args = "^0.1.5"
-mkdocs = "^1.4"
-path = "^16.6.0"
-semver = "^3.0.0"
-sgqlc = "^16.1"
-yarl = "^1.9.2"
-typer = { extras = ["all"], version = ">=0.9.0,<1.0" }
-inquirerpy = "^0.3.4"
-
-[tool.poetry.group.dev.dependencies]
-doppler-env = "^0.3.1"
-rich-tracebacks = "^1.2.1"
-
-[tool.poetry.group.docs.dependencies]
-cairosvg = "^2.7.0"
-pillow = "^9.5.0"
-poethepoet = "^0.19.0"
-artwall = {git = "https://github.com/celsiusnarhwal/artwall"}
-mkdocs-material = {git = "https://github.com/squidfunk/mkdocs-material-insiders"}
-
-[tool.poetry.scripts]
+[project.scripts]
 iconoclast = "iconoclast.cli.cli:app"
 icl = "iconoclast.cli.cli:app"
 
-[tool.poetry.plugins."mkdocs.plugins"]
-iconoclast = "iconoclast.plugins.main:IconoclastPlugin"
-iconocards = "iconoclast.plugins.cards:IconocardsPlugin"
+[dependency-groups]
+docs = [
+    "artwall",
+    "cairosvg>=2.7.1",
+    "mkdocs>=1.6.1",
+    "mkdocs-material",
+    "pillow>=10.4.0",
+]
 
-[tool.black]
-target-version = ["py37"]
-line-length = 88
+[tool.pdm.version]
+source = "scm"
 
-[tool.isort]
-profile = "black"
-
-[tool.poe.tasks]
-clear = "rm -rf site .cache"
-format = { shell = "for hook in black prettier isort; do pre-commit run $hook --all-files; done" }
-
-[tool.poe.tasks.docs]
-shell = """
-if $vercel; then
-    mkdocs build && vercel dev --cwd site --yes
-else
-    mkdocs serve
-fi
-"""
-env = { VERCEL_ORG_ID = "${VERCEL_ORG_ID}", VERCEL_PROJECT_ID = "${VERCEL_PROJECT_ID}" }
-
-[[tool.poe.tasks.docs.args]]
-name = "vercel"
-options = ["--vercel"]
-type = "boolean"
-default = false
+[tool.uv.sources]
+artwall = { git = "https://github.com/celsiusnarhwal/artwall" }
+mkdocs-material = { git = "https://github.com/squidfunk/mkdocs-material-insiders" }
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
