@@ -116,7 +116,7 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/celsiusnarhwal
       name: github.com/celsiusnarhwal
-    - icon: simple/pypi
+    - icon: fontawesome/brands/python
       link: https://pypi.org/project/iconoclast
       name: pypi.org/project/iconoclast
     - icon: simple/bluesky
